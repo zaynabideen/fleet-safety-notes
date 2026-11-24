@@ -1,0 +1,89 @@
+/*
+VOICE: calm, practical, expert — a working fleet manager's handbook, not a sales page.
+IDEA: a UK motorway sign: flat blue field, white type, clear hierarchy, nothing decorative.
+PICTURE: a drawn road in perspective with a van and its dash cam's field of view.
+COLOUR and TYPE: road-sign blue #1d4f91 dominant, white panels, hazard red #d4351c accent; Overpass headings + Source Sans 3 body.
+LAYOUT: full-width blue bands for headers and hero, white reading column under 70ch, cards in an auto grid.
+*/
+:root{color-scheme:light dark;
+--bg:light-dark(#ffffff,#0d1522);--ink:light-dark(#18202b,#e8edf4);--muted:light-dark(#4d5a6b,#a7b3c3);
+--blue:light-dark(#1d4f91,#173d70);--blue-ink:#ffffff;--panel:light-dark(#f1f4f8,#15202f);
+--line:light-dark(#d6dde6,#26344a);--red:#d4351c;--link:light-dark(#1d4f91,#8ab8ff)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 "Source Sans 3",system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:Overpass,"Source Sans 3",sans-serif;line-height:1.1;text-wrap:balance;margin:0 0 .5em}
+h1{font-size:clamp(32px,5vw,50px);font-weight:800}
+h2{font-size:clamp(24px,3vw,32px);font-weight:700;margin-top:1.6em}
+h3{font-size:20px;font-weight:700;margin-top:1.3em}
+a{color:var(--link)}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 max(5vw,16px)}
+.band{padding:clamp(28px,4vw,64px) 0}
+
+/* header */
+.top{background:var(--blue);color:var(--blue-ink)}
+.top .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 24px;padding-block:14px}
+.logo{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font:800 20px Overpass,sans-serif}
+.logo svg{flex:none}
+.top nav{display:flex;flex-wrap:wrap;gap:4px 18px}
+.top nav a{color:#fff;text-decoration:none;font-weight:600;padding:10px 0;border-bottom:3px solid transparent}
+.top nav a:hover,.top nav a[aria-current]{border-bottom-color:#fff}
+
+/* hero */
+.hero{background:var(--blue);color:#fff;padding-bottom:0}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:32px;align-items:end}
+.hero p.lede{font-size:19px;max-width:34em;color:#e6eef9}
+.hero .fig{min-height:320px;position:relative}
+.hero .fig svg{position:absolute;inset:0;width:100%;height:100%}
+.btn{display:inline-block;background:#fff;color:var(--blue);font-weight:700;text-decoration:none;padding:12px 20px;border-radius:6px;margin:8px 10px 24px 0;min-height:44px}
+.btn.ghost{background:transparent;color:#fff;box-shadow:inset 0 0 0 2px #fff}
+
+/* cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:22px;display:flex;flex-direction:column}
+.card h3{margin-top:0}
+.card p{color:var(--muted);margin:0 0 14px;flex:1}
+.tag{font-size:14px;font-weight:700;color:var(--red);margin-bottom:6px}
+
+/* article */
+.article-head{background:var(--blue);color:#fff}
+.article-head p{color:#e6eef9;max-width:40em;font-size:19px;margin:0}
+.meta{font-size:14px;color:#cfdcf0;margin-top:14px}
+.prose{max-width:720px;margin:0 auto;padding:clamp(28px,4vw,56px) max(5vw,16px)}
+.prose p,.prose li{max-width:68ch}
+.prose ul,.prose ol{padding-left:1.2em}
+.prose li{margin-bottom:.4em}
+.note{background:var(--panel);border-left:4px solid var(--blue);padding:14px 18px;border-radius:0 8px 8px 0;margin:1.4em 0}
+.note.warn{border-left-color:var(--red)}
+.toc{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:15px;padding:12px 0;border-bottom:1px solid var(--line);margin-bottom:10px}
+table{border-collapse:collapse;width:100%;font-size:16px;margin:1em 0}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:Overpass,sans-serif;font-size:15px}
+td.n,th.n{text-align:right;white-space:nowrap}
+.scroll{overflow-x:auto}
+
+/* calculator */
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start}
+.form{display:grid;gap:16px}
+label{display:block;font-weight:600;margin-bottom:6px}
+input,select{width:100%;font:16px "Source Sans 3",sans-serif;padding:11px 12px;min-height:44px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink)}
+.hint{font-size:14px;color:var(--muted);margin-top:4px}
+.result{background:var(--blue);color:#fff;border-radius:12px;padding:24px}
+.result .big{font:800 clamp(36px,6vw,56px)/1 Overpass,sans-serif;margin:6px 0 4px;white-space:nowrap}
+.result dl{display:grid;grid-template-columns:auto auto;gap:8px 16px;margin:18px 0 0}
+.result dt{color:#cfdcf0}.result dd{margin:0;text-align:right;font-weight:700;white-space:nowrap}
+.save{background:#fff;color:var(--ink);border-radius:8px;padding:14px 16px;margin-top:18px}
+.save strong{color:var(--red)}
+.presets{display:flex;flex-wrap:wrap;gap:8px}
+.presets button{font:600 15px "Source Sans 3",sans-serif;min-height:44px;padding:8px 14px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer}
+
+/* footer */
+footer{background:var(--panel);border-top:1px solid var(--line);margin-top:40px;font-size:15px;color:var(--muted)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-block:28px}
+footer nav{display:flex;flex-wrap:wrap;gap:8px 18px}
+
+@media(max-width:760px){.hero .wrap,.calc{grid-template-columns:minmax(0,1fr)}.hero .fig{min-height:240px}}
+@media(max-width:600px){table{font-size:14px}}
+@media(prefers-reduced-motion:no-preference){.cone{animation:pulse 4s ease-in-out infinite}@keyframes pulse{50%{opacity:.55}}}

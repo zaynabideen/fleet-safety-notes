@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://fleetsafetynotes.co.uk/sitemap.xml
