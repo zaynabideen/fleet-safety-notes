@@ -1,0 +1,108 @@
+<section class="article-head band"><div class="wrap">
+<h1>Fleet fuel cost calculator</h1>
+<p>See your fleet's weekly, monthly and yearly fuel bill in miles or kilometres, UK mpg, US mpg or L/100km, in your own currency, and what a small improvement in fuel economy would save.</p>
+</div></section>
+
+<section class="band"><div class="wrap">
+<div class="calc">
+<form class="form" id="f" autocomplete="off">
+<div><label>Quick start</label>
+<div class="presets">
+<button type="button" data-p="5,600,mi,38,ukmpg">5 vans (UK units)</button>
+<button type="button" data-p="10,500,mi,24,usmpg">10 pickups (US units)</button>
+<button type="button" data-p="3,2400,km,32,l100">3 trucks (metric)</button>
+</div></div>
+<div><label for="veh">Number of vehicles</label><input id="veh" type="number" min="1" step="1" value="5" inputmode="numeric"></div>
+<div><label for="dist">Distance per vehicle per week</label>
+<div style="display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:8px">
+<input id="dist" type="number" min="0" step="10" value="600" inputmode="numeric" aria-label="Distance per vehicle per week">
+<select id="du" aria-label="Distance unit"><option value="mi">miles</option><option value="km">km</option></select></div></div>
+<div><label for="eco">Average fuel economy</label>
+<div style="display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:8px">
+<input id="eco" type="number" min="0.1" step="0.5" value="38" inputmode="decimal" aria-label="Fuel economy value">
+<select id="eu" aria-label="Fuel economy unit"><option value="ukmpg">UK mpg</option><option value="usmpg">US mpg</option><option value="l100">L/100km</option></select></div>
+<div class="hint">UK mpg uses the imperial gallon (4.546 L); US mpg uses the US gallon (3.785 L). Use your real figure from fuel cards or telematics if you have it.</div></div>
+<div><label for="price">Fuel price</label>
+<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.3fr);gap:8px">
+<select id="cur" aria-label="Currency"><option value="£">£</option><option value="$">$</option><option value="€">€</option><option value="A$">A$</option><option value="C$">C$</option></select>
+<input id="price" type="number" min="0" step="0.01" value="1.40" inputmode="decimal" aria-label="Fuel price">
+<select id="pu" aria-label="Price unit"><option value="l">per litre</option><option value="usgal">per US gallon</option></select></div>
+<div class="hint">Enter what you currently pay. The default is only an example.</div></div>
+<div><label for="imp">Fuel economy improvement to test</label>
+<select id="imp"><option value="2">2%</option><option value="5" selected>5%</option><option value="10">10%</option><option value="15">15%</option></select>
+<div class="hint">For example from less idling, smoother braking or keeping to speed limits.</div></div>
+</form>
+
+<div class="result" aria-live="polite">
+<div>Yearly fuel cost</div>
+<div class="big" id="year">0</div>
+<div id="sub">for the whole fleet</div>
+<dl>
+<dt>Per week</dt><dd id="week">0</dd>
+<dt>Per month</dt><dd id="month">0</dd>
+<dt>Per vehicle per year</dt><dd id="pv">0</dd>
+<dt>Fuel per year</dt><dd id="lit">0</dd>
+</dl>
+<div class="save">A <span id="impv">5%</span> better fuel economy would save about <strong id="saving">0</strong> a year.</div>
+</div>
+</div>
+</div></section>
+
+<article class="prose" style="padding-top:0">
+<h2 style="margin-top:0">How the calculation works</h2>
+<ol>
+<li>Weekly fleet distance = vehicles × distance per vehicle per week (miles are converted to km at 1.609 km per mile where needed).</li>
+<li>Fuel used: UK mpg uses 4.546 litres per gallon, US mpg uses 3.785 litres per gallon, and L/100km is used directly.</li>
+<li>Cost = fuel used × price. Prices per US gallon are converted at 3.785 litres per gallon.</li>
+<li>Yearly figures assume 52 weeks; monthly figures are the yearly total ÷ 12.</li>
+<li>The saving compares today's cost with the cost at an improved fuel economy (fuel use ÷ (1 + improvement)).</li>
+</ol>
+<p>Watch out for mixed units: the same vehicle shows a lower figure in US mpg than in UK mpg because the US gallon is smaller.</p>
+<h2>Where fuel savings come from</h2>
+<p>Harsh acceleration and braking, long idling and high motorway or highway speeds all waste fuel. These are the same behaviours a <a href="driver-risk-scores.html">driver risk score</a> and a <a href="what-is-fleet-telematics.html">telematics system</a> track, which is why safety coaching and fuel savings usually go together.</p>
+</article>
+
+<script>
+{
+const $ = id => document.getElementById(id);
+const ids = ["veh","dist","du","eco","eu","cur","price","pu","imp"];
+const L_UK = 4.54609, L_US = 3.785411784, KM = 1.609344;
+const money = v => $("cur").value + Math.round(v).toLocaleString("en-GB");
+try { const s = JSON.parse(localStorage.getItem("fuelcalc2") || "null"); if (s) ids.forEach(k => { if (s[k] != null) $(k).value = s[k]; }); } catch (e) {}
+function litresFor(dist, du, eco, eu) {
+  const miles = du === "mi" ? dist : dist / KM, km = du === "km" ? dist : dist * KM;
+  if (eu === "ukmpg") return miles / eco * L_UK;
+  if (eu === "usmpg") return miles / eco * L_US;
+  return km * eco / 100;
+}
+function calc() {
+  const veh = Math.max(0, +$("veh").value || 0), dist = Math.max(0, +$("dist").value || 0);
+  const eco = Math.max(0.1, +$("eco").value || 0.1), price = Math.max(0, +$("price").value || 0);
+  const imp = +$("imp").value / 100;
+  const weekL = veh * litresFor(dist, $("du").value, eco, $("eu").value);
+  const perL = $("pu").value === "l" ? price : price / L_US;
+  const week = weekL * perL, year = week * 52, better = year / (1 + imp);
+  $("year").textContent = money(year);
+  $("sub").textContent = "for " + veh + (veh === 1 ? " vehicle" : " vehicles");
+  $("week").textContent = money(week);
+  $("month").textContent = money(year / 12);
+  $("pv").textContent = veh ? money(year / veh) : money(0);
+  $("lit").textContent = $("pu").value === "usgal"
+    ? Math.round(weekL * 52 / L_US).toLocaleString("en-GB") + " US gal"
+    : Math.round(weekL * 52).toLocaleString("en-GB") + " L";
+  $("impv").textContent = $("imp").value + "%";
+  $("saving").textContent = money(year - better);
+  try { const s = {}; ids.forEach(k => s[k] = $(k).value); localStorage.setItem("fuelcalc2", JSON.stringify(s)); } catch (e) {}
+}
+ids.forEach(k => { $(k).addEventListener("input", calc); $(k).addEventListener("change", calc); });
+document.querySelectorAll("[data-p]").forEach(b => b.addEventListener("click", () => {
+  const [v, d, du, e, eu] = b.dataset.p.split(",");
+  $("veh").value = v; $("dist").value = d; $("du").value = du; $("eco").value = e; $("eu").value = eu;
+  if (eu === "usmpg") { $("cur").value = "$"; $("pu").value = "usgal"; $("price").value = "3.50"; }
+  else { $("pu").value = "l"; if ($("cur").value === "$") { $("cur").value = eu === "l100" ? "€" : "£"; } $("price").value = "1.40"; }
+  calc();
+}));
+$("f").addEventListener("submit", e => e.preventDefault());
+calc();
+}
+</script>
