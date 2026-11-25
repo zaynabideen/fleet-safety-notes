@@ -16,6 +16,8 @@ PAGES = [
      "How fleet driver risk scores are calculated, why events are normalised per 1,000 miles, and how to use scores fairly.", "guides"),
     ("what-is-fleet-telematics.html", "What is fleet telematics? A beginner's guide for small fleets",
      "How fleet telematics works, what it tracks, the main device types, benefits, compliance, driver privacy and how to choose a system.", "guides"),
+    ("gps-fleet-tracking-costs.html", "GPS fleet tracking costs: contracts and hidden fees explained",
+     "What GPS fleet tracking really costs: hardware, installation, subscriptions, contract terms, hidden fees, network switch-offs, and a worksheet to compare quotes.", "guides"),
     ("fuel-cost-calculator.html", "Fleet fuel cost calculator (miles or km, mpg or L/100km, any currency)",
      "Work out weekly, monthly and yearly fuel cost for your fleet, and what a small mpg improvement would save.", "tools"),
     ("about.html", "About Fleet Safety Notes", "Our mission, what we cover and how Fleet Safety Notes stays independent.", "about"),
