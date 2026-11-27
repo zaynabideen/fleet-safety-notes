@@ -18,8 +18,8 @@ This folder is not published (GitHub Pages ignores folders that start with `_`).
 ## Topic backlog (pick the first unchecked item in priority order)
 ### Telematics & tracking
 - [x] What is fleet telematics? A beginner's guide
-- [ ] GPS fleet tracking: costs, contracts and hidden fees explained
-- [ ] OBD-II plug-in vs hard-wired trackers: which is right for you?
+- [x] GPS fleet tracking: costs, contracts and hidden fees explained
+- [x] OBD-II plug-in vs hard-wired trackers: which is right for you?
 - [ ] Electronic logging devices (ELDs) explained for small US carriers
 - [ ] Tachographs explained for UK and EU operators
 ### Dash cams & video
@@ -54,3 +54,5 @@ This folder is not published (GitHub Pages ignores folders that start with `_`).
 
 ## Run log
 - 2026-11-24: Site made brand-only and global. Added telematics guide, editorial standards page, global fuel calculator.
+- 2026-11-25: gps-fleet-tracking-costs.html, GPS fleet tracking costs: contracts and hidden fees explained (logged retrospectively).
+- 2026-11-27: obd-vs-hardwired-trackers.html, OBD-II plug-in vs hard-wired trackers: which is right for your fleet?
