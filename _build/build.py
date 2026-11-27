@@ -18,6 +18,8 @@ PAGES = [
      "How fleet telematics works, what it tracks, the main device types, benefits, compliance, driver privacy and how to choose a system.", "guides"),
     ("gps-fleet-tracking-costs.html", "GPS fleet tracking costs: contracts and hidden fees explained",
      "What GPS fleet tracking really costs: hardware, installation, subscriptions, contract terms, hidden fees, network switch-offs, and a worksheet to compare quotes.", "guides"),
+    ("obd-vs-hardwired-trackers.html", "OBD-II plug-in vs hard-wired trackers: which is right for your fleet?",
+     "Plug-in OBD trackers vs hard-wired units compared: installation, tamper resistance, theft recovery, vehicle data, security, trucks and ELDs, with a decision checklist.", "guides"),
     ("fuel-cost-calculator.html", "Fleet fuel cost calculator (miles or km, mpg or L/100km, any currency)",
      "Work out weekly, monthly and yearly fuel cost for your fleet, and what a small mpg improvement would save.", "tools"),
     ("about.html", "About Fleet Safety Notes", "Our mission, what we cover and how Fleet Safety Notes stays independent.", "about"),
